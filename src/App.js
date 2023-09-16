@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "./App.css";
 import ListLink from "./Listpage/ListLink.js";
 import UploadPage from "./upload/upload";
+import { API_URL } from "./config/constants";
 
 function Header() {
   return (
@@ -72,7 +73,7 @@ function App() {
   const [top3, setTop3] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/TopRankeds")
+    fetch(API_URL + "/TopRankeds")
       .then((response) => response.json())
       .then((data) => {
         setTop3(data);

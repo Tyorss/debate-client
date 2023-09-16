@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import "./upload.css";
+import { API_URL } from "../config/constants";
 
 function UploadPage() {
   const [name, setName] = useState("");
@@ -17,7 +18,7 @@ function UploadPage() {
   };
 
   const uploadData = () => {
-    fetch("http://localhost:8080/debates", {
+    fetch(API_URL + "/debates", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, user }),

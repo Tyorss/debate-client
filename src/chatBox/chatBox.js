@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Layout, Input, Button, Radio, Spin } from "antd";
 import { useParams } from "react-router-dom";
 import "./chatBox.css";
+import { API_URL, WS_URL } from "../config/constants";
 
 const { Content } = Layout;
 
@@ -20,7 +21,7 @@ const ChatBox = () => {
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:8080");
+    ws.current = new WebSocket(WS_URL);
 
     ws.current.onopen = () => {
       console.log("Connected to the websocket");
@@ -51,7 +52,7 @@ const ChatBox = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/debates/${debateID}`);
+        const res = await fetch(API_URL + `/debates/${debateID}`);
         const data = await res.json();
         setDebate(data);
         setAgreeCount(data.affirmativeVotes);
@@ -99,7 +100,7 @@ const ChatBox = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/messages/${messageId}`, {
+      const res = await fetch(API_URL + `/messages/${messageId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -141,7 +142,7 @@ const ChatBox = () => {
 
   const handleAClick = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/debates/${debateID}`, {
+      const res = await fetch(API_URL + `/debates/${debateID}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +158,7 @@ const ChatBox = () => {
 
   const handleBClick = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/debates/${debateID}`, {
+      const res = await fetch(API_URL + `/debates/${debateID}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

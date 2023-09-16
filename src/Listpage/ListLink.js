@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { List, Pagination } from "antd";
 import "./ListLink.css";
+import { API_URL } from "../config/constants";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -24,7 +25,7 @@ function ListLink() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:8080/debates");
+        const res = await fetch(API_URL + "/debates");
         const debatesData = await res.json();
         let sortedDebates = [...debatesData];
 
