@@ -28,7 +28,10 @@ function ListLink() {
         const res = await fetch(API_URL + "/debates");
         const debatesData = await res.json();
         let sortedDebates = [...debatesData];
-
+        console.log(
+          "🚀 ~ file: ListLink.js:31 ~ fetchData ~ sortedDebates:",
+          sortedDebates
+        );
         switch (id) {
           case "1":
             sortedDebates.sort((a, b) => b.userNumber - a.userNumber);
