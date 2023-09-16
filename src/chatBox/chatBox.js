@@ -224,7 +224,7 @@ const ChatBox = () => {
         </div>
       </div>
       <div className="main-content">
-        <div className="header">{title}</div>
+        <div className="header">{title}..</div>
 
         <Radio.Group
           onChange={(e) => setStance(e.target.value)}
