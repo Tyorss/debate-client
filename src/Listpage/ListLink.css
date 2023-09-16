@@ -1,0 +1,37 @@
+.list-container {
+  margin-top: 40px;
+  margin-left: 250px;
+  margin-right: 500px;
+  margin-bottom: 70px;
+}
+
+.list-header,
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-item,
+.list-item-content {
+  text-align: center;
+}
+
+.header-item.name,
+.list-item-content.name {
+  flex: 5;
+}
+
+.header-item.votes,
+.list-item-content.votes {
+  flex: 0.7;
+}
+
+.list-item-content.name {
+  text-align: left;
+}
+
+.list-item-content a {
+  color: #1890ff;
+}

@@ -1,38 +1,64 @@
-.App {
+a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.home {
+  margin-left: 150px;
+}
+
+.header,
+.nav,
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 1em;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 2em;
 }
 
-.App-link {
-  color: #61dafb;
+.content-box {
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: 180px;
+  width: 1000px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 200vh;
+}
+
+li {
+  list-style-type: none;
+  text-align: left;
+}
+
+.title-name {
+  display: flex;
+  justify-self: flex-start;
+  font-size: 20px;
+}
+
+.box-title {
+  display: flex;
+  justify-content: space-between;
 }
