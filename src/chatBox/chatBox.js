@@ -225,7 +225,7 @@ const ChatBox = () => {
         </div>
       </div>
       <div className="main-content">
-        <div className="header">{title}..</div>
+        <div className="header">{title}</div>
 
         <Radio.Group
           onChange={(e) => setStance(e.target.value)}
@@ -240,7 +240,12 @@ const ChatBox = () => {
           <Content>
             <ul>
               {messages.map((message, index) => (
-                <li key={index} className="message-item">
+                <li
+                  key={index}
+                  className={`message-item ${
+                    message.stance === "agree" ? "align-left" : "align-right"
+                  }`}
+                >
                   <div className="message-content">
                     <span className="emoji">{renderEmoji(message.stance)}</span>
                     {/* <span className="nickname">{message.user}:</span> */}
@@ -265,17 +270,22 @@ const ChatBox = () => {
             </ul>
           </Content>
         </Layout>
-
-        <Input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="메시지를 입력하세요."
-          style={{ marginTop: "10px" }}
-        />
-        <Button onClick={addMessage} style={{ marginTop: "10px" }}>
-          전송
-        </Button>
+        {stance === "neutral" ? (
+          <div style={{ marginTop: "10px" }}>찬성 혹은 반대를 선택해주세요</div>
+        ) : (
+          <div>
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="메시지를 입력하세요."
+              style={{ marginTop: "10px" }}
+            />
+            <Button onClick={addMessage} style={{ marginTop: "10px" }}>
+              전송
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

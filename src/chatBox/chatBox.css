@@ -56,21 +56,15 @@
   margin-left: 200px;
 }
 
-.message-item {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
 .message-contetn {
   flex-grow: 1;
 }
 
 .vote-buttons {
   display: flex;
+  min-width: 155px;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
 }
 
@@ -126,4 +120,26 @@
 .top-agree-area,
 .top-disagree-area {
   height: 180px;
+}
+
+.message-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.vote-buttons {
+  margin-left: auto;
+}
+
+.message-item.align-right .message-content {
+  margin-left: auto;
+  margin-right: 5px;
+  order: 1;
+}
+
+.message-item.align-right .vote-buttons {
+  margin-left: 0;
+  margin-right: 0;
+  order: 2;
 }

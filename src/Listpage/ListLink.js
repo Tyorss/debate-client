@@ -28,10 +28,7 @@ function ListLink() {
         const res = await fetch(API_URL + "/debates");
         const debatesData = await res.json();
         let sortedDebates = [...debatesData];
-        console.log(
-          "🚀 ~ file: ListLink.js:31 ~ fetchData ~ sortedDebates:",
-          sortedDebates
-        );
+
         switch (id) {
           case "1":
             sortedDebates.sort((a, b) => b.userNumber - a.userNumber);
@@ -83,6 +80,7 @@ function ListLink() {
         <div className="header-item votes">찬성</div>
         <div className="header-item votes">반대</div>
         <div className="header-item votes">참여 인원</div>
+        <div className="header-item votes">채팅수</div>
         <div className="header-item votes">글쓴이</div>
         <div className="header-item votes">날짜</div>
       </div>
@@ -104,6 +102,7 @@ function ListLink() {
               {debate.negativeVotes}
             </div>
             <div className="list-item-content votes">{debate.userNumber}</div>
+            <div className="list-item-content votes">{debate.messageCount}</div>
             <div className="list-item-content votes">{debate.user}</div>
             <div className="list-item-content votes">{debate.createdAt}</div>
           </List.Item>
