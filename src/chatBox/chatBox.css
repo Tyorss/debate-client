@@ -116,7 +116,6 @@
 
 .message-item.align-right .message-content {
   margin-left: auto;
-  margin-right: 5px;
   order: 1;
 }
 
@@ -124,4 +123,8 @@
   margin-left: 0;
   margin-right: 0;
   order: 2;
+}
+
+.messagechat-area {
+  padding: 0px;
 }

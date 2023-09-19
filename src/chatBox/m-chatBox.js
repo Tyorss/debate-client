@@ -204,35 +204,35 @@ const M_ChatBox = () => {
 
             <Layout className="m-message-area" ref={chatBoxRef}>
               <Content>
-                <ul>
+                <ul className="messagechat-area">
                   {messages.map((message, index) => (
                     <li
                       key={index}
-                      className={`message-item ${
+                      className={`m-message-item ${
                         message.stance === "agree"
                           ? "align-left"
                           : "align-right"
                       }`}
                     >
-                      <div className="message-content">
+                      <div className="m-message-content">
                         <span className="emoji">
                           {renderEmoji(message.stance)}
                         </span>
                         {/* <span className="nickname">{message.user}:</span> */}
-                        {" " + message.text}
+                        {message.text}
                       </div>
-                      <div className="vote-buttons">
+                      <div className="m-vote-buttons">
                         <Button
-                          className="vote-button"
+                          className="m-vote-button"
                           onClick={() => handleVote(index, "up")}
                         >
-                          Up {message.upvotes}
+                          {message.upvotes}
                         </Button>
                         <Button
-                          className="vote-button"
+                          className="m-vote-button"
                           onClick={() => handleVote(index, "down")}
                         >
-                          Down {message.downvotes}
+                          {message.downvotes}
                         </Button>
                       </div>
                     </li>

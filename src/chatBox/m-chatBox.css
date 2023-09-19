@@ -19,3 +19,30 @@
   height: 65%;
   overflow-y: scroll;
 }
+
+.m-vote-buttons {
+  display: flex;
+  min-width: 0px;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  margin-left: auto;
+  order: 1;
+}
+
+.m-message-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.m-message-item.align-right .m-message-content {
+  margin-left: auto;
+  order: 1;
+}
+
+.m-message-item.align-right .m-vote-buttons {
+  margin-left: 0;
+  margin-right: 0;
+  order: 2;
+}

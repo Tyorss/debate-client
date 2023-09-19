@@ -238,7 +238,7 @@ const ChatBox = () => {
 
         <Layout className="message-area" ref={chatBoxRef}>
           <Content>
-            <ul>
+            <ul className="messagechat-area">
               {messages.map((message, index) => (
                 <li
                   key={index}
