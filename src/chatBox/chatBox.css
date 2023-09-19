@@ -11,13 +11,6 @@
   height: 1000px;
 }
 
-.home {
-  display: flex;
-  justify-content: left;
-  margin-left: 130px;
-  font-size: large;
-}
-
 .chatpage-move {
   display: flex;
   justify-content: space-between;

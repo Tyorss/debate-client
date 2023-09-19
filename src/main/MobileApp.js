@@ -1,15 +1,15 @@
 import { CATEGORIES } from "../categories";
 import React, { useState, useEffect } from "react";
-import ChatBox from "../chatBox/chatBox.js";
+import M_ChatBox from "../chatBox/m-chatBox.js";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import "./MobileApp.css";
-import M_ListLink from "../Listpage/ListLink.js";
+import M_ListLink from "../Listpage/m-ListLink";
 import UploadPage from "../upload/upload";
 import { API_URL } from "../config/constants";
 
 function Header() {
   return (
-    <header className="header">
+    <header className="m-header">
       <Link to="/">Unboxers</Link>
     </header>
   );
@@ -64,7 +64,7 @@ function MobileApp() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/debate/:debateID" element={<ChatBox />} />
+        <Route path="/debate/:debateID" element={<M_ChatBox />} />
         <Route path="/list/:id" element={<M_ListLink debatesData={top3} />} />
         <Route path="/upload" element={<UploadPage />} />
         <Route

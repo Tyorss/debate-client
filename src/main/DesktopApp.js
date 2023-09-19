@@ -15,8 +15,8 @@ function Header() {
       const viewportWidth = window.innerWidth;
       const marginLeft =
         viewportWidth >= 1500
-          ? 150
-          : Math.max(0, (150 * (viewportWidth - 1200)) / 500);
+          ? 200
+          : Math.max(0, (200 * (viewportWidth - 1000)) / 500);
       homeRef.current.style.marginLeft = `${marginLeft}px`;
     }
 
@@ -48,18 +48,33 @@ function Header() {
 }
 
 function Home({ title, debates, categoryID }) {
+  const homeRef = React.createRef();
+
+  useEffect(() => {
+    function adjustMargin() {
+      const viewportWidth = window.innerWidth;
+      const marginLeft =
+        viewportWidth >= 1500
+          ? 200
+          : Math.max(0, (200 * (viewportWidth - 1000)) / 500);
+      homeRef.current.style.marginLeft = `${marginLeft}px`;
+    }
+
+    window.addEventListener("resize", adjustMargin);
+    adjustMargin();
+
+    return () => {
+      window.removeEventListener("resize", adjustMargin);
+    };
+  }, [homeRef]);
+
   return (
     <main className="main">
-      <section className="content-box">
+      <section className="content-box" ref={homeRef}>
         <div className="box-title">
-          <h2 className="title-name">{title}</h2>
-          <ul>
-            <li>
-              <Link to={`/list/${categoryID}`} className="plus-link">
-                더보기
-              </Link>
-            </li>
-          </ul>
+          <Link to={`/list/${categoryID}`} className="plus-link">
+            <h2 className="title-name">{title}</h2>
+          </Link>
         </div>
         <ul>
           {debates.map((debate) => (
