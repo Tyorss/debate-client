@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { List, Pagination } from "antd";
-import "./ListLink.css";
+import "./m-ListLink.css";
 import { API_URL } from "../config/constants";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -14,7 +14,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function ListLink() {
+function M_ListLink() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,24 +70,6 @@ function ListLink() {
     fetchData();
   }, [id]);
 
-  useEffect(() => {
-    function adjustMargin() {
-      const viewportWidth = window.innerWidth;
-      const marginLeft =
-        viewportWidth >= 1500
-          ? 150
-          : Math.max((150 * (viewportWidth - 1000)) / 500, 0);
-      listRef.current.style.marginLeft = `${marginLeft}px`;
-    }
-
-    window.addEventListener("resize", adjustMargin);
-    adjustMargin();
-
-    return () => {
-      window.removeEventListener("resize", adjustMargin);
-    };
-  }, [listRef]);
-
   const handlePageChange = (page) => {
     const queryStr = `${location.pathname}?page=${page}`;
     navigate(queryStr);
@@ -102,11 +84,7 @@ function ListLink() {
     <div className="list-container" ref={listRef}>
       <div className="list-header">
         <div className="header-item name">Name</div>
-        <div className="header-item votes">찬성</div>
-        <div className="header-item votes">반대</div>
         <div className="header-item votes">참여 인원</div>
-        <div className="header-item votes">채팅수</div>
-        <div className="header-item votes">글쓴이</div>
         <div className="header-item-date">날짜</div>
       </div>
       <List
@@ -155,4 +133,4 @@ function ListLink() {
   );
 }
 
-export default ListLink;
+export default M_ListLink;

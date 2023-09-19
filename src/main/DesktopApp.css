@@ -10,17 +10,43 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.home {
-  margin-left: 150px;
+.category-link {
+  margin-left: 0;
 }
 
-.header,
-.nav,
+.chatpage-move {
+  display: flex;
+  justify-content: flex-start;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.chatpage-move h1 {
+  margin: 0 10px;
+}
+
+.header h1 {
+  padding-right: 60px;
+}
+
 .footer {
   background-color: #333;
   color: white;
-  padding: 1em;
-  text-align: center;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  background-color: #333;
+  color: white;
+  width: 100%;
+  align-items: baseline;
+}
+
+.home {
+  text-align: left;
 }
 
 .main {

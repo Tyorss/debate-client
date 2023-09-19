@@ -11,11 +11,6 @@
   height: 1000px;
 }
 
-.header {
-  display: flex;
-  align-items: baseline;
-}
-
 .home {
   display: flex;
   justify-content: left;
@@ -27,11 +22,6 @@
   display: flex;
   justify-content: space-between;
   font-size: 10px;
-}
-
-.header h1 {
-  padding-left: 30px;
-  padding-right: 30px;
 }
 
 .stance-selector {
@@ -78,8 +68,7 @@
 
 .button-container {
   margin-top: 20px;
-  background-image: url("../image/simon0861_Agree_vs_Disagree_9ebfefd3-80a6-4804-bbc8-b652c899e44c.png");
-  /* background-image: url("../image/simon0861_An_image_that_would_be_present_in_the_back_of_an_inte_282cf255-fe25-4ecd-96cc-58ea8d1d131f.png"); */
+  background-image: url("../image/simon0861_red_vs_blue_d523affc-36ae-46e6-a01c-adece6ff8216.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -119,7 +108,7 @@
 
 .top-agree-area,
 .top-disagree-area {
-  height: 180px;
+  min-height: 180px;
 }
 
 .message-item {

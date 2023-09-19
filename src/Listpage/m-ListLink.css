@@ -1,9 +1,5 @@
 .list-container {
-  margin-top: 40px;
-  margin-left: 200px;
-  margin-right: 500px;
-  margin-bottom: 70px;
-  width: 1340px;
+  width: 100%;
 }
 
 .list-header,
