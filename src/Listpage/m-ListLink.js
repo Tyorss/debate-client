@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { List, Pagination } from "antd";
 import "./m-ListLink.css";
+import "./ListLink.css";
 import { API_URL } from "../config/constants";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -81,43 +82,30 @@ function M_ListLink() {
   );
 
   return (
-    <div className="list-container" ref={listRef}>
+    <div className="m-list-container" ref={listRef}>
       <div className="list-header">
-        <div className="header-item name">Name</div>
-        <div className="header-item votes">참여 인원</div>
-        <div className="header-item-date">날짜</div>
+        <div className="m-header-item name">Name</div>
+        <div className="m-header-item votes">참여 인원</div>
+        <div className="m-header-item votes">채팅수</div>
       </div>
       <List
         itemLayout="horizontal"
         dataSource={currentData}
         renderItem={(debate) => {
-          const now = dayjs();
-          const createdAt = dayjs(debate.createdAt);
-          const diffHours = now.diff(createdAt, "hour");
-          const formattedDate =
-            diffHours <= 24
-              ? createdAt.format("HH:mm")
-              : createdAt.format("YYYY.MM.DD");
           return (
             <List.Item className="list-item">
               <Link
                 to={`/debate/${debate.id}`}
-                className="list-item-content name"
+                className="m-list-item-content name"
               >
                 {debate.name}
               </Link>
-              <div className="list-item-content votes">
-                {debate.affirmativeVotes}
+              <div className="m-list-item-content votes">
+                {debate.userNumber}
               </div>
-              <div className="list-item-content votes">
-                {debate.negativeVotes}
-              </div>
-              <div className="list-item-content votes">{debate.userNumber}</div>
-              <div className="list-item-content votes">
+              <div className="m-list-item-content votes">
                 {debate.messageCount}
               </div>
-              <div className="list-item-content votes">{debate.user}</div>
-              <div className="list-item-content-date">{formattedDate}</div>
             </List.Item>
           );
         }}
