@@ -39,16 +39,8 @@
   margin-left: 200px;
 }
 
-.message-contetn {
+.message-contents {
   flex-grow: 1;
-}
-
-.vote-buttons {
-  display: flex;
-  min-width: 155px;
-  flex-direction: row;
-  justify-content: right;
-  align-items: center;
 }
 
 .top-agree {
@@ -111,6 +103,11 @@
 }
 
 .vote-buttons {
+  display: flex;
+  min-width: 155px;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
   margin-left: auto;
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import "./upload.css";
 import { API_URL } from "../config/constants";
 
@@ -8,12 +8,17 @@ function UploadPage() {
   const [user, setUser] = useState("");
 
   const handleSubmit = () => {
+    if (name.trim() === "" || user.trim() === "") {
+      message.error("토론 주제와 닉네임을 모두 작성해주세요.");
+      return;
+    }
     uploadData();
   };
 
   const handleEnterPress = (e) => {
     if (e.key === "Enter") {
-      uploadData();
+      e.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -36,7 +41,16 @@ function UploadPage() {
   return (
     <Form className="upload">
       <Form.Item label="토론 주제">
-        <Input value={name} onChange={(e) => setName(e.target.value)} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            maxLength={60}
+          />
+          <div style={{ marginLeft: "8px", color: "#aaa" }}>
+            ({`${name.length}/60`})
+          </div>
+        </div>
       </Form.Item>
       <Form.Item label="닉네임">
         <Input

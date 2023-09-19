@@ -22,7 +22,7 @@
 
 .m-vote-buttons {
   display: flex;
-  min-width: 0px;
+  min-width: 100px;
   flex-direction: row;
   justify-content: right;
   align-items: center;

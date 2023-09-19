@@ -21,54 +21,31 @@ function ListLink() {
   const query = useQuery();
   const [sortedDebates, setSortedDebates] = useState([]);
   const listRef = React.createRef();
+
   const [currentPage, setCurrentPage] = useState(
     Number(query.get("page")) || 1
   );
 
+  const [total, setTotal] = useState(0);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        `${API_URL}/debates?page=${currentPage}&sort=${id}`
+      );
+      const result = await res.json();
+      const { debates, total: totalDebates } = result;
+      setSortedDebates(debates);
+      setTotal(totalDebates);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     setCurrentPage(Number(query.get("page")) || 1);
-  }, [query]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(API_URL + "/debates");
-        const debatesData = await res.json();
-        let sortedDebates = [...debatesData];
-
-        switch (id) {
-          case "1":
-            sortedDebates.sort((a, b) => b.userNumber - a.userNumber);
-            break;
-          case "2":
-            sortedDebates.sort((a, b) => b.messageCount - a.messageCount);
-            break;
-          case "3":
-            sortedDebates.sort((a, b) => {
-              if (a.affirmativeVotes + a.negativeVotes <= 10) {
-                return 1;
-              } else if (b.affirmativeVotes + b.negativeVotes <= 10) {
-                return -1;
-              } else {
-                return a.voteDifference - b.voteDifference;
-              }
-            });
-            break;
-          case "4":
-            sortedDebates.sort((a, b) => b.id - a.id);
-            break;
-          default:
-            break;
-        }
-
-        setSortedDebates(sortedDebates);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
-  }, [id]);
+  }, [currentPage, id]);
 
   useEffect(() => {
     function adjustMargin() {
@@ -89,14 +66,10 @@ function ListLink() {
   }, [listRef]);
 
   const handlePageChange = (page) => {
+    setCurrentPage(page);
     const queryStr = `${location.pathname}?page=${page}`;
     navigate(queryStr);
   };
-
-  const currentData = sortedDebates.slice(
-    (currentPage - 1) * 15,
-    currentPage * 15
-  );
 
   return (
     <div className="list-container" ref={listRef}>
@@ -111,7 +84,7 @@ function ListLink() {
       </div>
       <List
         itemLayout="horizontal"
-        dataSource={currentData}
+        dataSource={sortedDebates}
         renderItem={(debate) => {
           const now = dayjs();
           const createdAt = dayjs(debate.createdAt);
@@ -147,7 +120,7 @@ function ListLink() {
 
       <Pagination
         current={currentPage}
-        total={sortedDebates.length}
+        total={total}
         pageSize={15}
         onChange={handlePageChange}
       />
