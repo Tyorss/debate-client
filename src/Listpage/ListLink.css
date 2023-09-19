@@ -1,9 +1,7 @@
 .list-container {
   margin-top: 40px;
-  margin-left: 200px;
-  margin-right: 500px;
   margin-bottom: 70px;
-  width: 1340px;
+  width: 1300px;
 }
 
 .list-header,
@@ -20,7 +18,7 @@
 
 .header-item.name,
 .list-item-content.name {
-  width: 940px;
+  width: 900px;
   padding-bottom: 10px;
 }
 

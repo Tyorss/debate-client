@@ -75,8 +75,8 @@ function ListLink() {
       const viewportWidth = window.innerWidth;
       const marginLeft =
         viewportWidth >= 1500
-          ? 150
-          : Math.max((150 * (viewportWidth - 1000)) / 500, 0);
+          ? 200
+          : Math.max((200 * (viewportWidth - 1000)) / 500, 0);
       listRef.current.style.marginLeft = `${marginLeft}px`;
     }
 
