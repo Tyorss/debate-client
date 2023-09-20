@@ -31,6 +31,7 @@
 
 .m-header {
   font-size: large;
+  padding: 1em;
   padding-top: 1em;
   padding-bottom: 1em;
   justify-content: space-between;

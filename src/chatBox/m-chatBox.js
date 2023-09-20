@@ -184,7 +184,6 @@ const M_ChatBox = () => {
   if (!debate) {
     return <Spin />;
   }
-
   return (
     <div>
       <div className="m-chatbox">
@@ -200,7 +199,6 @@ const M_ChatBox = () => {
               <Radio value={"agree"}>찬성</Radio>
               <Radio value={"disagree"}>반대</Radio>
             </Radio.Group>
-
             <Layout className="m-message-area" ref={chatBoxRef}>
               <Content>
                 <ul className="messagechat-area">
@@ -259,7 +257,7 @@ const M_ChatBox = () => {
             )}
           </div>
           <div className="m-sidebar">
-            찬 반 실시간 상황
+            &nbsp;&nbsp;&nbsp;찬 반 실시간 상황
             <div className="vote-result">
               <div
                 className="button-container"
@@ -276,7 +274,7 @@ const M_ChatBox = () => {
               </div>
             </div>
             <div className="top-agree-area">
-              <h3>Top Agree</h3>
+              <h3>&nbsp;&nbsp;&nbsp;Top Agree</h3>
               <ul>
                 {topMessages("agree").map((message, index) => (
                   <li key={index}>
@@ -286,7 +284,7 @@ const M_ChatBox = () => {
               </ul>
             </div>
             <div className="top-disagree-area">
-              <h3>Top Disagree</h3>
+              <h3>&nbsp;&nbsp;&nbsp;Top Disagree</h3>
               <ul>
                 {topMessages("disagree").map((message, index) => (
                   <li key={index}>
