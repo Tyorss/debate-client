@@ -3,7 +3,6 @@ import { Layout, Input, Button, Radio, Spin } from "antd";
 import { useParams } from "react-router-dom";
 import "./chatBox.css";
 import { API_URL, WS_URL } from "../config/constants";
-import { Footer } from "antd/es/layout/layout";
 import "./m-chatBox.css";
 
 const { Content } = Layout;
@@ -189,7 +188,7 @@ const M_ChatBox = () => {
   return (
     <div>
       <div className="m-chatbox">
-        <div>
+        <div className="m-content-area">
           <div className="m-main-content">
             <div className="header">{title}</div>
 
@@ -299,7 +298,6 @@ const M_ChatBox = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

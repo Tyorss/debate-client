@@ -1,7 +1,7 @@
 .m-main-content {
-  width: 90%;
+  width: 95%;
   padding: 1em;
-  height: 105vh;
+  height: 100vh;
 }
 .m-sidebar {
   width: 90%;
@@ -9,10 +9,6 @@
   padding: 1em;
   font-size: 25px;
   font-weight: bold;
-}
-
-.m-chatbox {
-  height: 90%;
 }
 
 .m-message-area {
@@ -45,4 +41,11 @@
   margin-left: 0;
   margin-right: 0;
   order: 2;
+}
+
+.m-content-area {
+  width: 100%;
+  background-color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
