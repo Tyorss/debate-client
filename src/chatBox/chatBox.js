@@ -248,7 +248,7 @@ const ChatBox = () => {
                 >
                   <div className="message-content">
                     <span className="emoji">{renderEmoji(message.stance)}</span>
-                    {/* <span className="nickname">{message.user}:</span> */}
+                    <span className="nickname">{message.user}joneo:</span>
                     {" " + message.text}
                   </div>
                   <div className="vote-buttons">
