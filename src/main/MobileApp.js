@@ -11,6 +11,8 @@ import { API_URL } from "../config/constants";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { List } from "antd";
+import M_UploadPage from "../upload/m-upload";
 
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
@@ -32,12 +34,13 @@ function Home({ title, debates, categoryID }) {
       <section className="content-box">
         <div className="box-title">
           <Link to={`/list/${categoryID}`} className="plus-link">
-            <div className="content-title">
+            <div className="m-content-title">
               <h2 className="title-name">{title}</h2>
               <span>more</span>
             </div>
           </Link>
         </div>
+
         <ul className="m-debate-line">
           {debates.map((debate) => {
             const now = dayjs();
@@ -45,16 +48,18 @@ function Home({ title, debates, categoryID }) {
             const formattedDate = createdAt.format("MM.DD");
 
             return (
-              <li key={debate.debateID}>
-                <span className="createdAt">{formattedDate}</span>
-                <Link
-                  to={`/debate/${debate.debateID}`}
-                  className="custom-link name"
-                >
-                  {debate.name}
-                </Link>
-                <span className="user">{debate.user}</span>
-              </li>
+              <List>
+                <li key={debate.debateID}>
+                  <span className="createdAt">{formattedDate}</span>
+                  <Link
+                    to={`/debate/${debate.debateID}`}
+                    className="custom-link name"
+                  >
+                    {debate.name}
+                  </Link>
+                  <span className="user">{debate.user}</span>
+                </li>
+              </List>
             );
           })}
         </ul>
@@ -114,7 +119,7 @@ function Content() {
             path="/list/:id"
             element={<M_ListLink debatesData={topDebatesByCategory} />}
           />
-          <Route path="/upload" element={<UploadPage />} />
+          <Route path="/upload" element={<M_UploadPage />} />
           <Route
             path="/"
             element={
