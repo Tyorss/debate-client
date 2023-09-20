@@ -1,7 +1,12 @@
 .list-container {
-  margin-top: 40px;
-  margin-bottom: 70px;
-  width: 1300px;
+  padding: 2em;
+  padding-top: 40px;
+  margin-bottom: 20px;
+  width: 1350px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .list-header,

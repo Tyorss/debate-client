@@ -6,84 +6,66 @@ import "./DesktopApp.css";
 import ListLink from "../Listpage/ListLink.js";
 import UploadPage from "../upload/upload";
 import { API_URL } from "../config/constants";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
 
 function Header() {
-  const homeRef = React.createRef();
-
-  useEffect(() => {
-    function adjustMargin() {
-      const viewportWidth = window.innerWidth;
-      const marginLeft =
-        viewportWidth >= 1500
-          ? 200
-          : Math.max(0, (200 * (viewportWidth - 1000)) / 500);
-      homeRef.current.style.marginLeft = `${marginLeft}px`;
-    }
-
-    window.addEventListener("resize", adjustMargin);
-    adjustMargin();
-
-    return () => {
-      window.removeEventListener("resize", adjustMargin);
-    };
-  }, [homeRef]);
-
   return (
     <header className="header">
-      <Link className="home" to="/" ref={homeRef}>
-        <h1>Unboxers</h1>
-      </Link>
-      <div className="chatpage-move">
-        {CATEGORIES.map((category) => (
-          <Link key={category.id} to={`/list/${category.id}`}>
-            <h1>{category.title}</h1>
-          </Link>
-        ))}
-        <Link to="/upload">
-          <h1>업로드</h1>
+      <div className="header-link">
+        <Link className="home" to="/">
+          <h1>Unboxers</h1>
         </Link>
+        <div className="chatpage-move">
+          {CATEGORIES.map((category) => (
+            <Link key={category.id} to={`/list/${category.id}`}>
+              <h1>{category.title}</h1>
+            </Link>
+          ))}
+          <Link to="/upload">
+            <h1>업로드</h1>
+          </Link>
+        </div>
       </div>
     </header>
   );
 }
 
 function Home({ title, debates, categoryID }) {
-  const homeRef = React.createRef();
-
-  useEffect(() => {
-    function adjustMargin() {
-      const viewportWidth = window.innerWidth;
-      const marginLeft =
-        viewportWidth >= 1500
-          ? 200
-          : Math.max(0, (200 * (viewportWidth - 1000)) / 500);
-      homeRef.current.style.marginLeft = `${marginLeft}px`;
-    }
-
-    window.addEventListener("resize", adjustMargin);
-    adjustMargin();
-
-    return () => {
-      window.removeEventListener("resize", adjustMargin);
-    };
-  }, [homeRef]);
-
   return (
     <main className="main">
-      <section className="content-box" ref={homeRef}>
+      <section className="content-box">
         <div className="box-title">
           <Link to={`/list/${categoryID}`} className="plus-link">
-            <h2 className="title-name">{title}</h2>
+            <div className="content-title">
+              <h2 className="title-name">{title}</h2>
+              <span>more</span>
+            </div>
           </Link>
         </div>
-        <ul>
-          {debates.map((debate) => (
-            <li key={debate.debateID}>
-              <Link to={`/debate/${debate.debateID}`} className="custom-link">
-                {debate.name}
-              </Link>
-            </li>
-          ))}
+        <ul className="debate-line">
+          {debates.map((debate) => {
+            const now = dayjs();
+            const createdAt = dayjs(debate.createdAt);
+            const formattedDate = createdAt.format("MM.DD");
+
+            return (
+              <li key={debate.debateID}>
+                <span className="createdAt">{formattedDate}</span>
+                <Link
+                  to={`/debate/${debate.debateID}`}
+                  className="custom-link name"
+                >
+                  {debate.name}
+                </Link>
+                <span className="user">{debate.user}</span>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </main>
@@ -99,46 +81,55 @@ function Footer() {
 }
 
 function DesktopApp() {
-  const [top3, setTop3] = useState([]);
+  const [topDebatesByCategory, setTopDebatesByCategory] = useState({});
 
   useEffect(() => {
-    fetch(API_URL + "/TopRankeds")
-      .then((response) => response.json())
-      .then((data) => {
-        setTop3(data);
-      })
-      .catch((error) => {
+    const fetchDebates = async (categoryId) => {
+      try {
+        const response = await fetch(
+          `${API_URL}/debatesByCategory?categoryId=${categoryId}`
+        );
+        const data = await response.json();
+        return data.debates;
+      } catch (error) {
         console.error("Error fetching data:", error);
-      });
+      }
+    };
+
+    Promise.all(CATEGORIES.map((cat) => fetchDebates(cat.id))).then(
+      (debatesResults) => {
+        const newTopDebates = {};
+        CATEGORIES.forEach((cat, index) => {
+          newTopDebates[cat.id] = debatesResults[index];
+        });
+        setTopDebatesByCategory(newTopDebates);
+      }
+    );
   }, []);
 
   return (
     <Router>
       <Header />
-      <Routes>
+      <Routes className="all">
         <Route path="/debate/:debateID" element={<ChatBox />} />
-        <Route path="/list/:id" element={<ListLink debatesData={top3} />} />
+        <Route
+          path="/list/:id"
+          element={<ListLink debatesData={topDebatesByCategory} />}
+        />
         <Route path="/upload" element={<UploadPage />} />
         <Route
           path="/"
           element={
             <main className="main">
               <section className="content-box-wrapper">
-                {top3 &&
-                  top3.length > 0 &&
-                  CATEGORIES.map((category, index) => {
-                    const startIdx = index * 3;
-                    const categoryDebates = top3.slice(startIdx, startIdx + 3);
-
-                    return (
-                      <Home
-                        key={category.id}
-                        title={category.title}
-                        debates={categoryDebates}
-                        categoryID={category.id}
-                      />
-                    );
-                  })}
+                {CATEGORIES.map((category) => (
+                  <Home
+                    key={category.id}
+                    title={category.title}
+                    debates={topDebatesByCategory[category.id] || []}
+                    categoryID={category.id}
+                  />
+                ))}
               </section>
             </main>
           }

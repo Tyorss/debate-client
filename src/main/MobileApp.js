@@ -4,14 +4,22 @@ import M_ChatBox from "../chatBox/m-chatBox.js";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./MobileApp.css";
+import "./DesktopApp.css";
 import M_ListLink from "../Listpage/m-ListLink";
 import UploadPage from "../upload/upload";
 import { API_URL } from "../config/constants";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
 
 function Header({ onNavigateBack }) {
   return (
     <header className="m-header">
-      <button onClick={onNavigateBack}>←</button>
+      {/* <button onClick={onNavigateBack}>←</button> */}
+      <div></div>
       <Link to="/">Unboxers</Link>
       <div></div>
     </header>
@@ -24,17 +32,31 @@ function Home({ title, debates, categoryID }) {
       <section className="content-box">
         <div className="box-title">
           <Link to={`/list/${categoryID}`} className="plus-link">
-            <h2 className="title-name">{title}</h2>
+            <div className="content-title">
+              <h2 className="title-name">{title}</h2>
+              <span>more</span>
+            </div>
           </Link>
         </div>
-        <ul>
-          {debates.map((debate) => (
-            <li key={debate.debateID}>
-              <Link to={`/debate/${debate.debateID}`} className="custom-link">
-                {debate.name}
-              </Link>
-            </li>
-          ))}
+        <ul className="m-debate-line">
+          {debates.map((debate) => {
+            const now = dayjs();
+            const createdAt = dayjs(debate.createdAt);
+            const formattedDate = createdAt.format("MM.DD");
+
+            return (
+              <li key={debate.debateID}>
+                <span className="createdAt">{formattedDate}</span>
+                <Link
+                  to={`/debate/${debate.debateID}`}
+                  className="custom-link name"
+                >
+                  {debate.name}
+                </Link>
+                <span className="user">{debate.user}</span>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </main>
@@ -51,62 +73,68 @@ function Footer() {
   );
 }
 
-// ... (same imports)
-
 function Content() {
+  // const navigate = useNavigate();
   const [top3, setTop3] = useState([]);
-  const navigate = useNavigate();
+
+  const [topDebatesByCategory, setTopDebatesByCategory] = useState({});
 
   useEffect(() => {
-    fetch(API_URL + "/TopRankeds")
-      .then((response) => response.json())
-      .then((data) => {
-        setTop3(data);
-      })
-      .catch((error) => {
+    const fetchDebates = async (categoryId) => {
+      try {
+        const response = await fetch(
+          `${API_URL}/debatesByCategory?categoryId=${categoryId}`
+        );
+        const data = await response.json();
+        return data.debates;
+      } catch (error) {
         console.error("Error fetching data:", error);
-      });
+      }
+    };
+
+    Promise.all(CATEGORIES.map((cat) => fetchDebates(cat.id))).then(
+      (debatesResults) => {
+        const newTopDebates = {};
+        CATEGORIES.forEach((cat, index) => {
+          newTopDebates[cat.id] = debatesResults[index];
+        });
+        setTopDebatesByCategory(newTopDebates);
+      }
+    );
   }, []);
 
   return (
     <>
       <Header />
-      <Header onNavigateBack={() => navigate(-1)} />
+      {/* <Header onNavigateBack={() => navigate(-1)} /> */}
       <div className="all">
         <Routes>
           <Route path="/debate/:debateID" element={<M_ChatBox />} />
-          <Route path="/list/:id" element={<M_ListLink debatesData={top3} />} />
+          <Route
+            path="/list/:id"
+            element={<M_ListLink debatesData={topDebatesByCategory} />}
+          />
           <Route path="/upload" element={<UploadPage />} />
           <Route
             path="/"
             element={
-              <main>
-                <section>
-                  {top3 &&
-                    top3.length > 0 &&
-                    CATEGORIES.map((category, index) => {
-                      const startIdx = index * 3;
-                      const categoryDebates = top3.slice(
-                        startIdx,
-                        startIdx + 3
-                      );
-
-                      return (
-                        <Home
-                          key={category.id}
-                          title={category.title}
-                          debates={categoryDebates}
-                          categoryID={category.id}
-                        />
-                      );
-                    })}
+              <main className="main">
+                <section className="m-content-box-wrapper">
+                  {CATEGORIES.map((category) => (
+                    <Home
+                      key={category.id}
+                      title={category.title}
+                      debates={topDebatesByCategory[category.id] || []}
+                      categoryID={category.id}
+                    />
+                  ))}
                 </section>
               </main>
             }
           />
         </Routes>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }

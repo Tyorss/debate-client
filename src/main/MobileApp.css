@@ -5,11 +5,11 @@
 }
 
 .all {
-  margin-top: 60px;
+  background-color: #ffffff;
+  padding-top: 50px;
 }
 
-.content-box {
-  border: 1px solid #ccc;
+.m-content-box {
   margin: 10px;
   padding: 40px;
   padding-top: 15px;
@@ -20,8 +20,7 @@
 
 .m-header,
 .footer {
-  background-color: #333;
-  color: white;
+  background-color: #ffffff;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -39,6 +38,12 @@
   top: 0;
   left: 0;
   width: 100%;
+  border-bottom: 2px solid #5cb85c;
+}
+
+.m-content-box-wrapper {
+  padding: 1em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .m-header button {
@@ -51,4 +56,27 @@
 
 .new-deabte {
   font-size: 10px;
+}
+
+.m-debate-line {
+  padding-left: 0;
+}
+
+.m-debate-line li {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.m-debate-line .createdAt {
+  flex: 0.8;
+  text-align: left;
+}
+.m-debate-line .user {
+  flex: 1;
+  text-align: left;
+}
+
+.m-debate-line .name {
+  flex: 3;
+  text-align: left;
 }

@@ -47,24 +47,6 @@ function ListLink() {
     fetchData();
   }, [currentPage, id]);
 
-  useEffect(() => {
-    function adjustMargin() {
-      const viewportWidth = window.innerWidth;
-      const marginLeft =
-        viewportWidth >= 1500
-          ? 200
-          : Math.max((200 * (viewportWidth - 1000)) / 500, 0);
-      listRef.current.style.marginLeft = `${marginLeft}px`;
-    }
-
-    window.addEventListener("resize", adjustMargin);
-    adjustMargin();
-
-    return () => {
-      window.removeEventListener("resize", adjustMargin);
-    };
-  }, [listRef]);
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
     const queryStr = `${location.pathname}?page=${page}`;
@@ -72,7 +54,7 @@ function ListLink() {
   };
 
   return (
-    <div className="list-container" ref={listRef}>
+    <div className="list-container">
       <div className="list-header">
         <div className="header-item name">Name</div>
         <div className="header-item votes">찬성</div>

@@ -238,36 +238,40 @@ const ChatBox = () => {
 
         <Layout className="message-area" ref={chatBoxRef}>
           <Content>
-            <ul className="messagechat-area">
-              {messages.map((message, index) => (
-                <li
-                  key={index}
-                  className={`message-item ${
-                    message.stance === "agree" ? "align-left" : "align-right"
-                  }`}
-                >
-                  <div className="message-content">
-                    <span className="emoji">{renderEmoji(message.stance)}</span>
-                    <span className="nickname">{message.user}joneo:</span>
-                    {" " + message.text}
-                  </div>
-                  <div className="vote-buttons">
-                    <Button
-                      className="vote-button"
-                      onClick={() => handleVote(index, "up")}
-                    >
-                      Up {message.upvotes}
-                    </Button>
-                    <Button
-                      className="vote-button"
-                      onClick={() => handleVote(index, "down")}
-                    >
-                      Down {message.downvotes}
-                    </Button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <div className="area">
+              <ul className="messagechat-area">
+                {messages.map((message, index) => (
+                  <li
+                    key={index}
+                    className={`message-item ${
+                      message.stance === "agree" ? "align-left" : "align-right"
+                    }`}
+                  >
+                    <div className="message-content">
+                      <span className="emoji">
+                        {renderEmoji(message.stance)}
+                      </span>
+                      <span className="nickname">{message.user}joneo:</span>
+                      {" " + message.text}
+                    </div>
+                    <div className="vote-buttons">
+                      <Button
+                        className="vote-button"
+                        onClick={() => handleVote(index, "up")}
+                      >
+                        Up {message.upvotes}
+                      </Button>
+                      <Button
+                        className="vote-button"
+                        onClick={() => handleVote(index, "down")}
+                      >
+                        Down {message.downvotes}
+                      </Button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Content>
         </Layout>
         {stance === "neutral" ? (
