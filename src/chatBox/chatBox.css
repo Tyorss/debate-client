@@ -1,5 +1,6 @@
 .chatbox {
   display: flex;
+  padding: 2em;
   width: 1350px;
   margin-left: auto;
   margin-right: auto;
@@ -10,8 +11,8 @@
 
 .main-content {
   padding: 20px;
-  width: 700px;
-  height: 1000px;
+  width: 900px;
+  height: 850px;
 }
 
 .chatpage-move {
@@ -25,7 +26,7 @@
 }
 
 .message-area {
-  height: 60%;
+  height: 75%;
   overflow-y: scroll;
 }
 
@@ -45,12 +46,8 @@
   flex-grow: 1;
 }
 
-.top-agree {
-  min-height: 200px;
-}
-
 .vote-result {
-  min-height: 200px;
+  min-height: 120px;
 }
 
 .button-container {
@@ -95,7 +92,8 @@
 
 .top-agree-area,
 .top-disagree-area {
-  min-height: 180px;
+  min-height: 250px;
+  padding-bottom: 0.2em;
 }
 
 .message-item {
@@ -132,6 +130,14 @@
   padding: 0px;
 }
 
-.area {
-  /* width: 1000px; */
+.truncated-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.top3-contents {
+  padding-left: 0px;
 }

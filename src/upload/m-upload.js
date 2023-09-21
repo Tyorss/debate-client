@@ -39,7 +39,7 @@ function M_UploadPage() {
   };
 
   return (
-    <Form className="upload">
+    <Form className="m-upload">
       <Form.Item label="토론 주제">
         <div style={{ display: "flex", alignItems: "center" }}>
           <Input

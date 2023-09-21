@@ -239,7 +239,7 @@ const M_ChatBox = () => {
             </Layout>
             {stance === "neutral" ? (
               <div style={{ marginTop: "10px" }}>
-                찬성 혹은 반대를 선택해주세요
+                &nbsp;&nbsp;&nbsp;찬성 혹은 반대를 선택해주세요
               </div>
             ) : (
               <div>
@@ -257,27 +257,29 @@ const M_ChatBox = () => {
             )}
           </div>
           <div className="m-sidebar">
-            &nbsp;&nbsp;&nbsp;찬 반 실시간 상황
-            <div className="vote-result">
-              <div
-                className="button-container"
-                style={{ backgroundPositionX: backgroundPosition + "%" }}
-              >
-                <button className="button" onClick={handleAClick}>
-                  <span className="button-text">찬성</span>
-                  <span className="button-text">{agreeCount}</span>
-                </button>
-                <button className="button" onClick={handleBClick}>
-                  <span className="button-text">반대</span>
-                  <span className="button-text">{disagreeCount}</span>
-                </button>
+            <div className="vote-area">
+              &nbsp;&nbsp;&nbsp;찬 반 실시간 상황
+              <div className="vote-result">
+                <div
+                  className="button-container"
+                  style={{ backgroundPositionX: backgroundPosition + "%" }}
+                >
+                  <button className="button" onClick={handleAClick}>
+                    <span className="button-text">찬성</span>
+                    <span className="button-text">{agreeCount}</span>
+                  </button>
+                  <button className="button" onClick={handleBClick}>
+                    <span className="button-text">반대</span>
+                    <span className="button-text">{disagreeCount}</span>
+                  </button>
+                </div>
               </div>
             </div>
             <div className="top-agree-area">
               <h3>&nbsp;&nbsp;&nbsp;Top Agree</h3>
               <ul>
                 {topMessages("agree").map((message, index) => (
-                  <li key={index}>
+                  <li key={index} className="truncated-text">
                     {index + 1}. {message.text}
                   </li>
                 ))}
@@ -287,7 +289,7 @@ const M_ChatBox = () => {
               <h3>&nbsp;&nbsp;&nbsp;Top Disagree</h3>
               <ul>
                 {topMessages("disagree").map((message, index) => (
-                  <li key={index}>
+                  <li key={index} className="truncated-text">
                     {index + 1}. {message.text}
                   </li>
                 ))}

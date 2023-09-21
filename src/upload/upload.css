@@ -1,4 +1,21 @@
-.upload {
+.m-upload {
   padding: 2em;
   width: 100%;
+}
+
+.upload {
+  width: 100%;
+  background-color: white;
+}
+
+.upload-content-area {
+  width: 1350px;
+  padding: 2em;
+  padding-top: 5em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.upload-contents {
+  width: 600px;
 }

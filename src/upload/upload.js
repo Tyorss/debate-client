@@ -40,30 +40,34 @@ function UploadPage() {
 
   return (
     <Form className="upload">
-      <Form.Item label="토론 주제">
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            maxLength={60}
-          />
-          <div style={{ marginLeft: "8px", color: "#aaa" }}>
-            ({`${name.length}/60`})
-          </div>
+      <div className="upload-content-area">
+        <div className="upload-contents">
+          <Form.Item label="토론 주제">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                maxLength={60}
+              />
+              <div style={{ marginLeft: "8px", color: "#aaa" }}>
+                ({`${name.length}/60`})
+              </div>
+            </div>
+          </Form.Item>
+          <Form.Item label="닉네임">
+            <Input
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              onKeyPress={handleEnterPress}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" onClick={handleSubmit}>
+              업로드
+            </Button>
+          </Form.Item>
         </div>
-      </Form.Item>
-      <Form.Item label="닉네임">
-        <Input
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
-          onKeyPress={handleEnterPress}
-        />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" onClick={handleSubmit}>
-          업로드
-        </Button>
-      </Form.Item>
+      </div>
     </Form>
   );
 }

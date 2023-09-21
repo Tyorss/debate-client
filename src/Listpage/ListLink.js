@@ -61,7 +61,7 @@ function ListLink() {
         <div className="header-item votes">반대</div>
         <div className="header-item votes">참여 인원</div>
         <div className="header-item votes">채팅수</div>
-        <div className="header-item votes">글쓴이</div>
+        <div className="header-item user">글쓴이</div>
         <div className="header-item-date">날짜</div>
       </div>
       <List
@@ -93,7 +93,7 @@ function ListLink() {
               <div className="list-item-content votes">
                 {debate.messageCount}
               </div>
-              <div className="list-item-content votes">{debate.user}</div>
+              <div className="list-item-content user">{debate.user}</div>
               <div className="list-item-content-date">{formattedDate}</div>
             </List.Item>
           );

@@ -81,6 +81,11 @@
 .m-debate-line .name {
   flex: 3;
   text-align: left;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  margin-right: 1em;
 }
 
 .m-content-title {

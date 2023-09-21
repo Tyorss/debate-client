@@ -35,6 +35,15 @@
   text-align: center;
 }
 
+.header-item.user,
+.list-item-content.user {
+  display: -webkit-box;
+  width: 120px;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .list-item-content.name {
   text-align: left;
 }

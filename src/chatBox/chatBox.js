@@ -205,9 +205,9 @@ const ChatBox = () => {
         </div>
         <div className="top-agree-area">
           <h3>Top Agree</h3>
-          <ul>
+          <ul className="top3-contents">
             {topMessages("agree").map((message, index) => (
-              <li key={index}>
+              <li key={index} className="truncated-text">
                 {index + 1}. {message.text}
               </li>
             ))}
@@ -215,9 +215,9 @@ const ChatBox = () => {
         </div>
         <div className="top-disagree-area">
           <h3>Top Disagree</h3>
-          <ul>
+          <ul className="top3-contents">
             {topMessages("disagree").map((message, index) => (
-              <li key={index}>
+              <li key={index} className="truncated-text">
                 {index + 1}. {message.text}
               </li>
             ))}
