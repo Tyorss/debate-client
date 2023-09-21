@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Layout, Input, Button, Radio, Spin } from "antd";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./chatBox.css";
 import { API_URL, WS_URL } from "../config/constants";
 import "./m-chatBox.css";
@@ -189,7 +189,7 @@ const M_ChatBox = () => {
       <div className="m-chatbox">
         <div className="m-content-area">
           <div className="m-main-content">
-            <div className="header">{title}</div>
+            <div className="header">&nbsp;&nbsp;&nbsp;{title}</div>
 
             <Radio.Group
               onChange={(e) => setStance(e.target.value)}

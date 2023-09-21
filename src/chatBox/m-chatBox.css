@@ -1,9 +1,10 @@
 .m-main-content {
   width: 100%;
   padding-top: 1.5em;
-  padding-left: 1em;
   height: 105vh;
+  border-left: 1em;
 }
+
 .m-sidebar {
   width: 100%;
   border-right: 1px solid #ccc;
@@ -48,5 +49,6 @@
 .m-content-area {
   width: 100%;
   background-color: white;
+  margin: 0px;
   margin-bottom: 20px;
 }

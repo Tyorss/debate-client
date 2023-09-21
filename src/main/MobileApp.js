@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 import "./MobileApp.css";
 import "./DesktopApp.css";
 import M_ListLink from "../Listpage/m-ListLink";
-import UploadPage from "../upload/upload";
+import M_UploadPage from "../upload/m-upload";
 import { API_URL } from "../config/constants";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { List } from "antd";
-import M_UploadPage from "../upload/m-upload";
 
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
@@ -20,10 +19,7 @@ dayjs.locale("ko");
 function Header({ onNavigateBack }) {
   return (
     <header className="m-header">
-      {/* <button onClick={onNavigateBack}>←</button> */}
-      <div></div>
       <Link to="/">Unboxers</Link>
-      <div></div>
     </header>
   );
 }
@@ -42,17 +38,17 @@ function Home({ title, debates, categoryID }) {
         </div>
 
         <ul className="m-debate-line">
-          {debates.map((debate) => {
+          {debates.map((debate, index) => {
             const now = dayjs();
             const createdAt = dayjs(debate.createdAt);
             const formattedDate = createdAt.format("MM.DD");
 
             return (
-              <List>
-                <li key={debate.debateID}>
+              <List key={`${index}-${categoryID}-${debate.id}`}>
+                <li>
                   <span className="createdAt">{formattedDate}</span>
                   <Link
-                    to={`/debate/${debate.debateID}`}
+                    to={`/debate/${debate.id}`}
                     className="custom-link name"
                   >
                     {debate.name}
@@ -79,7 +75,6 @@ function Footer() {
 }
 
 function Content() {
-  // const navigate = useNavigate();
   const [top3, setTop3] = useState([]);
 
   const [topDebatesByCategory, setTopDebatesByCategory] = useState({});
@@ -111,7 +106,6 @@ function Content() {
   return (
     <>
       <Header />
-      {/* <Header onNavigateBack={() => navigate(-1)} /> */}
       <div className="all">
         <Routes>
           <Route path="/debate/:debateID" element={<M_ChatBox />} />

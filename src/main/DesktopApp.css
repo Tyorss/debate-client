@@ -109,9 +109,13 @@ ul li::marker {
   margin-bottom: 10px;
 }
 
-.debate-line .createdAt,
-.debate-line .user {
+.debate-line .createdAt {
   flex: 1;
+  text-align: left;
+}
+
+.debate-line .user {
+  flex: 1.5;
   text-align: left;
 }
 

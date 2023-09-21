@@ -9,6 +9,7 @@ import { API_URL } from "../config/constants";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { List } from "antd";
 
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
@@ -48,22 +49,24 @@ function Home({ title, debates, categoryID }) {
           </Link>
         </div>
         <ul className="debate-line">
-          {debates.map((debate) => {
+          {debates.map((debate, index) => {
             const now = dayjs();
             const createdAt = dayjs(debate.createdAt);
             const formattedDate = createdAt.format("MM.DD");
 
             return (
-              <li key={debate.debateID}>
-                <span className="createdAt">{formattedDate}</span>
-                <Link
-                  to={`/debate/${debate.debateID}`}
-                  className="custom-link name"
-                >
-                  {debate.name}
-                </Link>
-                <span className="user">{debate.user}</span>
-              </li>
+              <List key={`${index}-${categoryID}-${debate.id}`}>
+                <li>
+                  <span className="createdAt">{formattedDate}</span>
+                  <Link
+                    to={`/debate/${debate.id}`}
+                    className="custom-link name"
+                  >
+                    {debate.name}
+                  </Link>
+                  <span className="user">{debate.user}</span>
+                </li>
+              </List>
             );
           })}
         </ul>
