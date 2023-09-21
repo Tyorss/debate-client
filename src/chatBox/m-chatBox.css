@@ -52,3 +52,18 @@
   margin: 0px;
   margin-bottom: 20px;
 }
+
+.m-title {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 97%;
+}
+
+.m-title::before {
+  content: "";
+  display: block;
+  height: 1.5em; /* line-height와 동일한 값을 사용하여 줄 높이를 맞춥니다. */
+  width: 2ch; /* 3글자만큼의 너비. 조정이 필요하면 변경하세요. */
+  float: left; /* 좌측에 부동 처리하여 다음 줄부터의 내용을 밀어냅니다. */
+}

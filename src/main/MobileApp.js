@@ -49,7 +49,7 @@ function Home({ title, debates, categoryID }) {
                   <span className="createdAt">{formattedDate}</span>
                   <Link
                     to={`/debate/${debate.id}`}
-                    className="custom-link name"
+                    className="m-custom-link name"
                   >
                     {debate.name}
                   </Link>

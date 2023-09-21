@@ -189,7 +189,7 @@ const M_ChatBox = () => {
       <div className="m-chatbox">
         <div className="m-content-area">
           <div className="m-main-content">
-            <div className="header">&nbsp;&nbsp;&nbsp;{title}</div>
+            <div className="m-title">{title}</div>
 
             <Radio.Group
               onChange={(e) => setStance(e.target.value)}
