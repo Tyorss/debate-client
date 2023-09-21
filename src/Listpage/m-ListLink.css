@@ -13,6 +13,10 @@
 .m-list-item-content.name {
   width: 90%;
   padding-bottom: 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 
 .m-header-item.name {
