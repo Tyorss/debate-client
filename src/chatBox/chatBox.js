@@ -118,7 +118,6 @@ const ChatBox = () => {
         upvotes: 0,
         downvotes: 0,
       };
-      console.log(message);
 
       if (ws.current.readyState === WebSocket.OPEN) {
         ws.current.send(JSON.stringify({ type: "NEW_MESSAGE", message }));
