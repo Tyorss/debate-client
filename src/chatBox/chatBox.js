@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Layout, Input, Button, Radio, Spin } from "antd";
+import { Layout, Input, Button, Radio, Spin, Modal, Form } from "antd";
 import { useParams } from "react-router-dom";
 import "./chatBox.css";
 import { API_URL, WS_URL } from "../config/constants";
@@ -41,9 +41,8 @@ const ChatBox = () => {
 
   // 이벤트 처리: 사용자가 닉네임을 제출할 때
   // 여기서는 input 필드에서 값을 가져와야 합니다.
-  const handleSubmitNickname = (e) => {
-    e.preventDefault();
-    const inputNickname = e.target.nicknameInput.value;
+  const handleSubmitNickname = (values) => {
+    const inputNickname = values.nicknameInput;
     handleSetNickname(inputNickname);
   };
 
@@ -239,15 +238,30 @@ const ChatBox = () => {
   return (
     <div>
       {showNicknameModal && (
-        <div className="nickname-modal">
-          <form onSubmit={handleSubmitNickname}>
-            <label>
-              닉네임:
-              <input type="text" name="nicknameInput" required />
-            </label>
-            <button type="submit">제출</button>
-          </form>
-        </div>
+        <Modal
+          title="닉네임 입력"
+          visible={showNicknameModal}
+          onCancel={() => setShowNicknameModal(false)}
+          footer={null} // 모달 하단의 기본 버튼들을 제거
+          maskClosable={false} // 모달의 배경(마스크) 클릭 시 모달이 닫히지 않도록 설정
+          closable={false} // 모달의 닫기 버튼을 제거
+          className="nickname-modal"
+        >
+          <Form onFinish={handleSubmitNickname}>
+            <Form.Item
+              label="닉네임"
+              name="nicknameInput"
+              rules={[{ required: true, message: "닉네임을 입력해주세요!" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                제출
+              </Button>
+            </Form.Item>
+          </Form>
+        </Modal>
       )}
       <div className="chatbox">
         <div className="sidebar">
@@ -324,7 +338,9 @@ const ChatBox = () => {
                         <span className="emoji">
                           {renderEmoji(message.stance)}
                         </span>
-                        <span className="nickname">{message.user}: </span>
+                        <span className="nickname">
+                          &nbsp;{message.user}:&nbsp;
+                        </span>
                         {" " + message.text}
                       </div>
                       <div className="vote-buttons">
