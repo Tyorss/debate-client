@@ -67,12 +67,13 @@ body {
 
 .content-box {
   padding-bottom: 10px;
+  width: 600px;
 }
 
 .content-box-wrapper {
   background-color: #ffffff;
   padding: 2em;
-  min-width: 1350px;
+  width: 1350px;
   margin-left: auto;
   margin-right: auto;
   display: grid;
@@ -122,12 +123,20 @@ ul li::marker {
 .debate-line .name {
   flex: 7;
   text-align: left;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  margin-right: 20px;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
-.custom-link .name,
 .user {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
 }

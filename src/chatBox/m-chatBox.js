@@ -201,7 +201,7 @@ const M_ChatBox = () => {
             </Radio.Group>
             <Layout className="m-message-area" ref={chatBoxRef}>
               <Content>
-                <ul className="messagechat-area">
+                <ul className="m-messagechat-area">
                   {messages.map((message, index) => (
                     <li
                       key={index}
@@ -280,7 +280,8 @@ const M_ChatBox = () => {
               <ul>
                 {topMessages("agree").map((message, index) => (
                   <li key={index} className="truncated-text">
-                    {index + 1}. {message.text}
+                    <span className="index">{index + 1}.</span>{" "}
+                    <span className="message">{message.text}</span>{" "}
                   </li>
                 ))}
               </ul>
@@ -290,7 +291,8 @@ const M_ChatBox = () => {
               <ul>
                 {topMessages("disagree").map((message, index) => (
                   <li key={index} className="truncated-text">
-                    {index + 1}. {message.text}
+                    <span className="index">{index + 1}.</span>{" "}
+                    <span className="message">{message.text}</span>{" "}
                   </li>
                 ))}
               </ul>

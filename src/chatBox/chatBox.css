@@ -42,17 +42,12 @@
   font-weight: bold;
 }
 
-.message-contents {
-  flex-grow: 1;
-}
-
 .vote-result {
   min-height: 120px;
 }
 
 .button-container {
   margin-top: 20px;
-  background-image: url("../image/simon0861_red_vs_blue_d523affc-36ae-46e6-a01c-adece6ff8216.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -65,16 +60,20 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: transparent;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   border: none;
+  border-radius: 10%;
   font-size: 1.5em;
 }
 
 .button-container button:first-child {
+  background-color: rgb(173, 84, 84);
   left: 10px;
 }
 
 .button-container button:last-child {
+  background-color: rgb(118, 118, 160);
   right: 10px;
 }
 
@@ -102,6 +101,14 @@
   justify-content: flex-start;
 }
 
+.message-content {
+  word-break: break-word;
+}
+
+.nickname {
+  white-space: nowrap; /* 닉네임이 여러 줄로 나눠지는 것을 방지 */
+}
+
 .vote-buttons {
   display: flex;
   min-width: 155px;
@@ -112,12 +119,13 @@
 }
 
 .message-item.align-right .message-content {
-  margin-left: auto;
+  display: flex;
   order: 1;
 }
 
 .message-item.align-right {
-  padding-left: 25px;
+  justify-content: flex-end;
+  padding-left: 40px;
 }
 
 .message-item.align-right .vote-buttons {
@@ -131,11 +139,26 @@
 }
 
 .truncated-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* limit to 2 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  display: flex; /* flexbox 사용 */
+  align-items: flex-start; /* 아이템들을 상단 정렬 */
+  overflow-wrap: break-word; /* 내용이 넘치면 다음 줄로 넘김 */
   margin-bottom: 10px;
+}
+
+.truncated-text .index {
+  /* 숫자를 위한 클래스 추가 */
+  flex: 0 0 auto; /* 숫자 부분은 줄바꿈 없이 고정 */
+  margin-right: 5px; /* 오른쪽에 약간의 공간 추가 */
+}
+
+.truncated-text .message {
+  /* 메시지를 위한 클래스 추가 */
+  flex: 1; /* 메시지 부분은 가능한 모든 공간을 사용 */
+  display: -webkit-box; /* webkit 기반 브라우저에서만 동작하는 box 모델 */
+  -webkit-line-clamp: 2; /* 2줄까지만 표시 */
+  -webkit-box-orient: vertical; /* 수직 방향으로 클램핑 */
+  overflow: hidden; /* 넘치는 내용은 숨김 */
+  text-overflow: ellipsis; /* 이 속성은 실제로는 필요하지 않지만 혹시 몰라서 남겨둡니다. */
 }
 
 .top3-contents {

@@ -12,8 +12,9 @@ const ChatBox = () => {
   const [input, setInput] = useState("");
   const [disagreeCount, setDisagreeCount] = useState(0);
   const [agreeCount, setAgreeCount] = useState(0);
+  const [agreeButtonWidth, setAgreeButtonWidth] = useState(0);
+  const [disagreeButtonWidth, setDisagreeButtonWidth] = useState(0);
   const [title, setTitle] = useState("");
-  const [backgroundPosition, setBackgroundPosition] = useState(50);
   const [debate, setDebate] = useState(null);
   const [stance, setStance] = useState("neutral");
   const ws = useRef(null);
@@ -52,17 +53,26 @@ const ChatBox = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(API_URL + `/debates/${debateID}`);
-        const data = await res.json();
-        setDebate(data);
-        setAgreeCount(data.affirmativeVotes);
-        setDisagreeCount(data.negativeVotes);
-        setTitle(data.name);
+        // Fetch debate details
+        const resDebate = await fetch(API_URL + `/debates/${debateID}`);
+        const debateData = await resDebate.json();
+        setDebate(debateData);
+        setAgreeCount(debateData.affirmativeVotes);
+        setDisagreeCount(debateData.negativeVotes);
+        setTitle(debateData.name);
+
+        // Fetch messages
+        const resMessages = await fetch(API_URL + `/messages/${debateID}`);
+        const messagesData = await resMessages.json();
+        setMessages(messagesData);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchData();
+
+    const intervalId = setInterval(fetchData, 1500);
+
+    return () => clearInterval(intervalId); // Clear interval on component unmount
   }, [debateID]);
 
   useEffect(() => {
@@ -174,10 +184,25 @@ const ChatBox = () => {
 
   useEffect(() => {
     const totalVotes = agreeCount + disagreeCount;
-    if (totalVotes >= 10) {
-      const diff = 50 + ((disagreeCount - agreeCount) / totalVotes) * 100;
-      setBackgroundPosition(Math.min(Math.max(diff, 25), 75));
+    const minButtonWidthPercentage = 30; // 최소 버튼 너비 비율 (%)
+
+    if (totalVotes === 0) {
+      setAgreeButtonWidth("45%");
+      setDisagreeButtonWidth("45%");
+      return;
     }
+
+    const agreePercentage = Math.min(
+      Math.max((agreeCount / totalVotes) * 90, minButtonWidthPercentage),
+      55
+    );
+    const disagreePercentage = Math.max(
+      90 - agreePercentage,
+      minButtonWidthPercentage
+    );
+
+    setAgreeButtonWidth(`${agreePercentage}%`);
+    setDisagreeButtonWidth(`${disagreePercentage}%`);
   }, [agreeCount, disagreeCount]);
 
   if (!debate) {
@@ -189,15 +214,20 @@ const ChatBox = () => {
       <div className="sidebar">
         찬 반 실시간 상황
         <div className="vote-result">
-          <div
-            className="button-container"
-            style={{ backgroundPositionX: backgroundPosition + "%" }}
-          >
-            <button className="button" onClick={handleAClick}>
+          <div className="button-container">
+            <button
+              className="button"
+              onClick={handleAClick}
+              style={{ width: agreeButtonWidth }}
+            >
               <span className="button-text">찬성</span>
               <span className="button-text">{agreeCount}</span>
             </button>
-            <button className="button" onClick={handleBClick}>
+            <button
+              className="button"
+              onClick={handleBClick}
+              style={{ width: disagreeButtonWidth }}
+            >
               <span className="button-text">반대</span>
               <span className="button-text">{disagreeCount}</span>
             </button>
@@ -208,7 +238,8 @@ const ChatBox = () => {
           <ul className="top3-contents">
             {topMessages("agree").map((message, index) => (
               <li key={index} className="truncated-text">
-                {index + 1}. {message.text}
+                <span className="index">{index + 1}.</span>{" "}
+                <span className="message">{message.text}</span>{" "}
               </li>
             ))}
           </ul>
@@ -218,7 +249,8 @@ const ChatBox = () => {
           <ul className="top3-contents">
             {topMessages("disagree").map((message, index) => (
               <li key={index} className="truncated-text">
-                {index + 1}. {message.text}
+                <span className="index">{index + 1}.</span>{" "}
+                <span className="message">{message.text}</span>{" "}
               </li>
             ))}
           </ul>

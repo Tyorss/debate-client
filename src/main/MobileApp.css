@@ -10,11 +10,9 @@
 }
 
 .m-content-box {
-  margin: 10px;
-  padding: 40px;
   padding-top: 15px;
   padding-bottom: 15px;
-  width: 70%;
+  width: 100%;
   justify-content: center;
 }
 
@@ -86,6 +84,15 @@
   -webkit-line-clamp: 1;
   overflow: hidden;
   margin-right: 1em;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.m-custom-link .name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 
 .m-content-title {

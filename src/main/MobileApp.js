@@ -27,7 +27,7 @@ function Header({ onNavigateBack }) {
 function Home({ title, debates, categoryID }) {
   return (
     <main className="main">
-      <section className="content-box">
+      <section className="m-content-box">
         <div className="box-title">
           <Link to={`/list/${categoryID}`} className="plus-link">
             <div className="m-content-title">
