@@ -20,6 +20,32 @@ const ChatBox = () => {
   const ws = useRef(null);
   const [connected, setConnected] = useState(false);
   const chatBoxRef = useRef(null);
+  const [nickname, setNickname] = useState(
+    localStorage.getItem("nickname") || ""
+  );
+  const [showNicknameModal, setShowNicknameModal] = useState(!nickname);
+
+  // 페이지가 로드될 때 닉네임을 확인
+  useEffect(() => {
+    if (!nickname) {
+      setShowNicknameModal(true);
+    }
+  }, []);
+
+  // 닉네임 저장 및 모달 숨기기
+  const handleSetNickname = (newNickname) => {
+    localStorage.setItem("nickname", newNickname);
+    setNickname(newNickname);
+    setShowNicknameModal(false);
+  };
+
+  // 이벤트 처리: 사용자가 닉네임을 제출할 때
+  // 여기서는 input 필드에서 값을 가져와야 합니다.
+  const handleSubmitNickname = (e) => {
+    e.preventDefault();
+    const inputNickname = e.target.nicknameInput.value;
+    handleSetNickname(inputNickname);
+  };
 
   useEffect(() => {
     ws.current = new WebSocket(WS_URL);
@@ -85,12 +111,14 @@ const ChatBox = () => {
   const addMessage = () => {
     if (input.trim() !== "") {
       const message = {
+        user: nickname,
         debateID: debateID,
         text: input,
         stance: stance,
         upvotes: 0,
         downvotes: 0,
       };
+      console.log(message);
 
       if (ws.current.readyState === WebSocket.OPEN) {
         ws.current.send(JSON.stringify({ type: "NEW_MESSAGE", message }));
@@ -210,118 +238,135 @@ const ChatBox = () => {
   }
 
   return (
-    <div className="chatbox">
-      <div className="sidebar">
-        찬 반 실시간 상황
-        <div className="vote-result">
-          <div className="button-container">
-            <button
-              className="button"
-              onClick={handleAClick}
-              style={{ width: agreeButtonWidth }}
-            >
-              <span className="button-text">찬성</span>
-              <span className="button-text">{agreeCount}</span>
-            </button>
-            <button
-              className="button"
-              onClick={handleBClick}
-              style={{ width: disagreeButtonWidth }}
-            >
-              <span className="button-text">반대</span>
-              <span className="button-text">{disagreeCount}</span>
-            </button>
-          </div>
+    <div>
+      {showNicknameModal && (
+        <div className="nickname-modal">
+          <form onSubmit={handleSubmitNickname}>
+            <label>
+              닉네임:
+              <input type="text" name="nicknameInput" required />
+            </label>
+            <button type="submit">제출</button>
+          </form>
         </div>
-        <div className="top-agree-area">
-          <h3>Top Agree</h3>
-          <ul className="top3-contents">
-            {topMessages("agree").map((message, index) => (
-              <li key={index} className="truncated-text">
-                <span className="index">{index + 1}.</span>{" "}
-                <span className="message">{message.text}</span>{" "}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="top-disagree-area">
-          <h3>Top Disagree</h3>
-          <ul className="top3-contents">
-            {topMessages("disagree").map((message, index) => (
-              <li key={index} className="truncated-text">
-                <span className="index">{index + 1}.</span>{" "}
-                <span className="message">{message.text}</span>{" "}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="main-content">
-        <div className="header">{title}</div>
-
-        <Radio.Group
-          onChange={(e) => setStance(e.target.value)}
-          value={stance}
-          className="stance-selector"
-        >
-          <Radio value={"agree"}>찬성</Radio>
-          <Radio value={"disagree"}>반대</Radio>
-        </Radio.Group>
-
-        <Layout className="message-area" ref={chatBoxRef}>
-          <Content>
-            <div className="area">
-              <ul className="messagechat-area">
-                {messages.map((message, index) => (
-                  <li
-                    key={index}
-                    className={`message-item ${
-                      message.stance === "agree" ? "align-left" : "align-right"
-                    }`}
-                  >
-                    <div className="message-content">
-                      <span className="emoji">
-                        {renderEmoji(message.stance)}
-                      </span>
-                      <span className="nickname">{message.user}joneo:</span>
-                      {" " + message.text}
-                    </div>
-                    <div className="vote-buttons">
-                      <Button
-                        className="vote-button"
-                        onClick={() => handleVote(index, "up")}
-                      >
-                        Up {message.upvotes}
-                      </Button>
-                      <Button
-                        className="vote-button"
-                        onClick={() => handleVote(index, "down")}
-                      >
-                        Down {message.downvotes}
-                      </Button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+      )}
+      <div className="chatbox">
+        <div className="sidebar">
+          찬 반 실시간 상황
+          <div className="vote-result">
+            <div className="button-container">
+              <button
+                className="button"
+                onClick={handleAClick}
+                style={{ width: agreeButtonWidth }}
+              >
+                <span className="button-text">찬성</span>
+                <span className="button-text">{agreeCount}</span>
+              </button>
+              <button
+                className="button"
+                onClick={handleBClick}
+                style={{ width: disagreeButtonWidth }}
+              >
+                <span className="button-text">반대</span>
+                <span className="button-text">{disagreeCount}</span>
+              </button>
             </div>
-          </Content>
-        </Layout>
-        {stance === "neutral" ? (
-          <div style={{ marginTop: "10px" }}>찬성 혹은 반대를 선택해주세요</div>
-        ) : (
-          <div>
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="메시지를 입력하세요."
-              style={{ marginTop: "10px" }}
-            />
-            <Button onClick={addMessage} style={{ marginTop: "10px" }}>
-              전송
-            </Button>
           </div>
-        )}
+          <div className="top-agree-area">
+            <h3>Top Agree</h3>
+            <ul className="top3-contents">
+              {topMessages("agree").map((message, index) => (
+                <li key={index} className="truncated-text">
+                  <span className="index">{index + 1}.</span>{" "}
+                  <span className="message">{message.text}</span>{" "}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="top-disagree-area">
+            <h3>Top Disagree</h3>
+            <ul className="top3-contents">
+              {topMessages("disagree").map((message, index) => (
+                <li key={index} className="truncated-text">
+                  <span className="index">{index + 1}.</span>{" "}
+                  <span className="message">{message.text}</span>{" "}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="main-content">
+          <div className="header">{title}</div>
+
+          <Radio.Group
+            onChange={(e) => setStance(e.target.value)}
+            value={stance}
+            className="stance-selector"
+          >
+            <Radio value={"agree"}>찬성</Radio>
+            <Radio value={"disagree"}>반대</Radio>
+          </Radio.Group>
+
+          <Layout className="message-area" ref={chatBoxRef}>
+            <Content>
+              <div className="area">
+                <ul className="messagechat-area">
+                  {messages.map((message, index) => (
+                    <li
+                      key={index}
+                      className={`message-item ${
+                        message.stance === "agree"
+                          ? "align-left"
+                          : "align-right"
+                      }`}
+                    >
+                      <div className="message-content">
+                        <span className="emoji">
+                          {renderEmoji(message.stance)}
+                        </span>
+                        <span className="nickname">{message.user}: </span>
+                        {" " + message.text}
+                      </div>
+                      <div className="vote-buttons">
+                        <Button
+                          className="vote-button"
+                          onClick={() => handleVote(index, "up")}
+                        >
+                          Up {message.upvotes}
+                        </Button>
+                        <Button
+                          className="vote-button"
+                          onClick={() => handleVote(index, "down")}
+                        >
+                          Down {message.downvotes}
+                        </Button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Content>
+          </Layout>
+          {stance === "neutral" ? (
+            <div style={{ marginTop: "10px" }}>
+              찬성 혹은 반대를 선택해주세요
+            </div>
+          ) : (
+            <div>
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="메시지를 입력하세요."
+                style={{ marginTop: "10px" }}
+              />
+              <Button onClick={addMessage} style={{ marginTop: "10px" }}>
+                전송
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
