@@ -22,6 +22,11 @@
   height: 850px;
 }
 
+.subject {
+  font-size: 25px;
+  font-weight: bold;
+}
+
 .chatpage-move {
   display: flex;
   justify-content: space-between;
@@ -30,6 +35,10 @@
 
 .stance-selector {
   margin: 10px;
+}
+
+.stance-button {
+  font-size: 25px;
 }
 
 .message-area {

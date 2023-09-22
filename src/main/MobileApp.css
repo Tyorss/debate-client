@@ -6,7 +6,7 @@
 
 .all {
   background-color: #ffffff;
-  padding-top: 50px;
+  padding-top: 70px;
 }
 
 .m-content-box {
@@ -23,14 +23,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
   z-index: 1000;
   white-space: nowrap;
 }
 
 .m-header {
   box-sizing: border-box;
-  font-size: large;
   padding-top: 1em;
   padding-bottom: 1em;
   justify-content: center;
@@ -39,6 +37,8 @@
   left: 0;
   width: 100%;
   border-bottom: 2px solid #5cb85c;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .m-content-box-wrapper {

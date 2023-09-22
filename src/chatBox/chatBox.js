@@ -310,16 +310,7 @@ const ChatBox = () => {
           </div>
         </div>
         <div className="main-content">
-          <div className="header">{title}</div>
-
-          <Radio.Group
-            onChange={(e) => setStance(e.target.value)}
-            value={stance}
-            className="stance-selector"
-          >
-            <Radio value={"agree"}>찬성</Radio>
-            <Radio value={"disagree"}>반대</Radio>
-          </Radio.Group>
+          <div className="subject">토론 주제 : {title}</div>
 
           <Layout className="message-area" ref={chatBoxRef}>
             <Content>
@@ -363,10 +354,13 @@ const ChatBox = () => {
               </div>
             </Content>
           </Layout>
+
           {stance === "neutral" ? (
-            <div style={{ marginTop: "10px" }}>
-              찬성 혹은 반대를 선택해주세요
-            </div>
+            <Input
+              placeholder="찬성 혹은 반대를 선택해주세요"
+              style={{ marginTop: "10px" }}
+              readOnly
+            />
           ) : (
             <div>
               <Input
@@ -376,11 +370,24 @@ const ChatBox = () => {
                 placeholder="메시지를 입력하세요."
                 style={{ marginTop: "10px" }}
               />
+
               <Button onClick={addMessage} style={{ marginTop: "10px" }}>
                 전송
               </Button>
             </div>
           )}
+          <Radio.Group
+            onChange={(e) => setStance(e.target.value)}
+            value={stance}
+            className="stance-selector"
+          >
+            <Radio className="stance-button" value={"agree"}>
+              찬성
+            </Radio>
+            <Radio className="stance-button" value={"disagree"}>
+              반대
+            </Radio>
+          </Radio.Group>
         </div>
       </div>
     </div>

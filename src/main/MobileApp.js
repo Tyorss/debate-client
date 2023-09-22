@@ -19,7 +19,9 @@ dayjs.locale("ko");
 function Header({ onNavigateBack }) {
   return (
     <header className="m-header">
-      <Link to="/">썰전</Link>
+      <Link className="m-home" to="/">
+        썰전
+      </Link>
     </header>
   );
 }
