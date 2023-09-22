@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Form, Input, Button, message } from "antd";
 import "./upload.css";
 import { API_URL } from "../config/constants";
+import { useNavigate } from "react-router-dom";
 
 function M_UploadPage() {
   const [name, setName] = useState("");
   const [user, setUser] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     if (name.trim() === "" || user.trim() === "") {
@@ -31,7 +33,7 @@ function M_UploadPage() {
       .then((res) => res.json())
       .then((data) => {
         console.log("Debate created:", data);
-        window.location.reload();
+        navigate(-1);
       })
       .catch((error) => console.error("Error:", error));
     console.log("Name:", name);
