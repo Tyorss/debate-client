@@ -19,7 +19,7 @@ function Header() {
     <header className="header">
       <div className="header-link">
         <Link className="home" to="/">
-          <h1>Unboxers</h1>
+          <h1>썰전</h1>
         </Link>
         <div className="chatpage-move">
           {CATEGORIES.map((category) => (
