@@ -33,6 +33,7 @@ function M_UploadPage() {
       .then((res) => res.json())
       .then((data) => {
         console.log("Debate created:", data);
+        message.success("업로드가 되었습니다");
         navigate(-1);
       })
       .catch((error) => console.error("Error:", error));
