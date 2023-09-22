@@ -22,11 +22,6 @@
   height: 850px;
 }
 
-.subject {
-  font-size: 25px;
-  font-weight: bold;
-}
-
 .chatpage-move {
   display: flex;
   justify-content: space-between;
@@ -38,7 +33,7 @@
 }
 
 .stance-button {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .message-area {
@@ -175,6 +170,34 @@
   -webkit-box-orient: vertical; /* 수직 방향으로 클램핑 */
   overflow: hidden; /* 넘치는 내용은 숨김 */
   text-overflow: ellipsis; /* 이 속성은 실제로는 필요하지 않지만 혹시 몰라서 남겨둡니다. */
+}
+
+.subject {
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+  align-items: flex-start;
+  overflow-wrap: break-word;
+}
+
+.subject-label {
+  white-space: nowrap;
+  flex: 0 0 auto; /* 숫자 부분은 줄바꿈 없이 고정 */
+  margin-right: 5px; /* 오른쪽에 약간의 공간 추가 */
+}
+
+.subject-title {
+  flex: 1; /* 메시지 부분은 가능한 모든 공간을 사용 */
+  display: -webkit-box; /* webkit 기반 브라우저에서만 동작하는 box 모델 */
+  -webkit-box-orient: vertical; /* 수직 방향으로 클램핑 */
+  overflow: hidden; /* 넘치는 내용은 숨김 */
+}
+
+.subject-title::before {
+  content: "";
+  display: block;
+  width: calc(100% - 1em); /* "토론 주제 :"의 너비만큼 공간을 비워둠 */
+  height: 0;
 }
 
 .top3-contents {

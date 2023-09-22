@@ -1,0 +1,26 @@
+/* global.css */
+@font-face {
+  font-family: "Pretendard";
+  src:
+    url("../static/woff2//Pretendard-Regular.woff2") format("woff2"),
+    url("../static/woff/Pretendard-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src:
+    url("../static/woff2//Pretendard-Bold.woff2") format("woff2"),
+    url("../static/woff/Pretendard-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: "Pretendard", sans-serif;
+}

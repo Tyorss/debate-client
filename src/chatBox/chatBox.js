@@ -310,7 +310,10 @@ const ChatBox = () => {
           </div>
         </div>
         <div className="main-content">
-          <div className="subject">토론 주제 : {title}</div>
+          <div className="subject">
+            <span className="subject-label">토론 주제 :</span>
+            <span className="subject-title">{title}</span>
+          </div>
 
           <Layout className="message-area" ref={chatBoxRef}>
             <Content>

@@ -267,16 +267,11 @@ const M_ChatBox = () => {
         <div className="m-chatbox">
           <div className="m-content-area">
             <div className="m-main-content">
-              <div className="m-title">{title}</div>
+              <div className="subject">
+                <span className="subject-label">토론 주제 :</span>
+                <span className="subject-title">{title}</span>
+              </div>
 
-              <Radio.Group
-                onChange={(e) => setStance(e.target.value)}
-                value={stance}
-                className="stance-selector"
-              >
-                <Radio value={"agree"}>찬성</Radio>
-                <Radio value={"disagree"}>반대</Radio>
-              </Radio.Group>
               <Layout className="m-message-area" ref={chatBoxRef}>
                 <Content>
                   <ul className="m-messagechat-area">
@@ -318,9 +313,11 @@ const M_ChatBox = () => {
                 </Content>
               </Layout>
               {stance === "neutral" ? (
-                <div style={{ marginTop: "10px" }}>
-                  &nbsp;&nbsp;&nbsp;찬성 혹은 반대를 선택해주세요
-                </div>
+                <Input
+                  placeholder="찬성 혹은 반대를 선택해주세요"
+                  style={{ marginTop: "10px" }}
+                  readOnly
+                />
               ) : (
                 <div>
                   <Input
@@ -330,11 +327,24 @@ const M_ChatBox = () => {
                     placeholder="메시지를 입력하세요."
                     style={{ marginTop: "10px" }}
                   />
+
                   <Button onClick={addMessage} style={{ marginTop: "10px" }}>
                     전송
                   </Button>
                 </div>
               )}
+              <Radio.Group
+                onChange={(e) => setStance(e.target.value)}
+                value={stance}
+                className="stance-selector"
+              >
+                <Radio className="stance-button" value={"agree"}>
+                  찬성
+                </Radio>
+                <Radio className="stance-button" value={"disagree"}>
+                  반대
+                </Radio>
+              </Radio.Group>
             </div>
             <div className="m-sidebar">
               <div className="vote-area">
