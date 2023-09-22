@@ -56,6 +56,7 @@ body {
   display: flex;
   justify-content: left;
   font-size: large;
+  white-space: nowrap;
 }
 
 .main {
