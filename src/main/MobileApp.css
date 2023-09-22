@@ -25,6 +25,7 @@
   align-items: center;
   font-size: 12px;
   z-index: 1000;
+  white-space: nowrap;
 }
 
 .m-header {
