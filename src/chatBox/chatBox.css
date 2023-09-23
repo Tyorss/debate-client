@@ -110,6 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  font-family: "Pretendard", sans-serif;
 }
 
 .message-content {
@@ -191,6 +192,7 @@
   display: -webkit-box; /* webkit 기반 브라우저에서만 동작하는 box 모델 */
   -webkit-box-orient: vertical; /* 수직 방향으로 클램핑 */
   overflow: hidden; /* 넘치는 내용은 숨김 */
+  padding-bottom: 0.5em;
 }
 
 .subject-title::before {

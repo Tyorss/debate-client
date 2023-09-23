@@ -30,12 +30,9 @@ function UploadPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Debate created:", data);
         window.location.reload();
       })
       .catch((error) => console.error("Error:", error));
-    console.log("Name:", name);
-    console.log("User:", user);
   };
 
   return (
